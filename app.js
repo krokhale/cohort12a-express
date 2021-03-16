@@ -9,10 +9,19 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// console.log(app)
+
+// /users
+// /users/1
+// /users/1/profile
+// /users/1/profile/edit
+// /users/1/profile/edit/whatever
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// request traverses through the middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -21,6 +30,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+// app.use('/api/v1', apiRouter);
+//
+// api/v1/users GET  POST DELETE
+// api/v1/dogs  POST DELETE
+// api/v1/profiles GET DELETE
+// api/v1/cars GET PUT
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
