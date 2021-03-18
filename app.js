@@ -3,9 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('./lib/models')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -16,6 +18,9 @@ var app = express();
 // /users/1/profile
 // /users/1/profile/edit
 // /users/1/profile/edit/whatever
+
+// RESTful API design
+// URL properly formatted
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use('/api/v1', apiRouter);
 
 // app.use('/api/v1', apiRouter);
 //
