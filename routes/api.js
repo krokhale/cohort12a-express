@@ -20,6 +20,7 @@ router.post('/users', async function(req, res, next) {
     // send back the response
     let user = await User.create(req.body);
     res.json(user);
+    // res.json({});
 });
 
 // GET http://localhost:3000/api/v1/users
