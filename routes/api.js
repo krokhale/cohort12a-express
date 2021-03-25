@@ -3,8 +3,42 @@
 
 var express = require('express');
 var router = express.Router();
-const {User} = require('../lib/models');
+const {User, Todo} = require('../lib/models');
 
+router.get('/todos', async function(req, res, next) {
+    let todos = await Todo.findAll({});
+    res.json(todos);
+});
+
+router.post('/todos', async function(req, res, next) {
+    console.log('req.body is', req.body);
+    // Save this in the database
+    // send back the response
+    let todo = await Todo.create(req.body);
+    res.json(todo);
+    // res.json({});
+});
+
+router.put('/todos/:id', async function(req, res, next) {
+    console.log('req.params are', req.params);
+    console.log('req.body is', req.body);
+    // Save this in the database
+    // send back the response
+    let todo = await Todo.update(req.body, {where: {id: req.params.id}});
+
+    res.json(todo);
+    // res.json({});
+});
+
+
+router.delete('/todos/:id', async function(req, res, next) {
+    console.log('req.params', req.params);
+    // let user = await User.findOne({where: {id: req.params.id}});
+    // await user.update(req.body);
+    // let user = await User.findOne({where: {id: req.params.id}});
+    let item = await Todo.destroy({where: {id: req.params.id}});
+    res.json(item);
+});
 
 // POST http://localhost:3000/api/v1/users
 //     GET http://localhost:3000/api/v1/users/1
